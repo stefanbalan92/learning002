@@ -1,28 +1,26 @@
-# Simple lab values, hard coded
-
 locals {
 
   location            = "uksouth"
 
   resource_group_name = "Test001"
-
-  vnet_name           = "vnet001"
-
-  subnet_name         = "subnet001"
-
-  nsg_name            = "nsg001"
-
-  nic_name            = "nic001"
-
-  public_ip_name      = "pip001"
-
-  vm_name             = "myVm001"
-
-  admin_username      = "adminstrator001"
  
-  #dev password, do not use in real environments
+  vnet_name      = "vnet001"
 
-  admin_password      = "ChangeMe123!"
+  subnet_name    = "subnet001"
+
+  nsg_name       = "nsg001"
+
+  nic_name       = "nic001"
+
+  public_ip_name = "pip001"
+
+  vm_name        = "myVm001"
+ 
+  admin_username = "administrator001"
+
+  # Lab password, do not use in real environments
+
+  admin_password = "ChangeMe123!"
 
 }
  
@@ -36,7 +34,7 @@ resource "azurerm_resource_group" "rg" {
 
 }
  
-# Virtual network and subnet
+# Virtual network
 
 resource "azurerm_virtual_network" "vnet" {
 
@@ -50,6 +48,8 @@ resource "azurerm_virtual_network" "vnet" {
 
 }
  
+# Subnet
+
 resource "azurerm_subnet" "subnet" {
 
   name                 = local.subnet_name
@@ -59,22 +59,6 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name = azurerm_virtual_network.vnet.name
 
   address_prefixes     = ["10.10.1.0/24"]
-
-}
- 
-# Public IP
-
-resource "azurerm_public_ip" "pip" {
-
-  name                = local.public_ip_name
-
-  location            = azurerm_resource_group.rg.location
-
-  resource_group_name = azurerm_resource_group.rg.name
- 
-  allocation_method = "Static"
-
-  sku               = "Standard"
 
 }
  
@@ -109,6 +93,22 @@ resource "azurerm_network_security_group" "nsg" {
     destination_address_prefix = "*"
 
   }
+
+}
+ 
+# Public IP
+
+resource "azurerm_public_ip" "pip" {
+
+  name                = local.public_ip_name
+
+  location            = azurerm_resource_group.rg.location
+
+  resource_group_name = azurerm_resource_group.rg.name
+ 
+  allocation_method = "Static"
+
+  sku               = "Standard"
 
 }
  
@@ -203,4 +203,5 @@ output "vm_public_ip" {
   description = "Public IP of the demo VM"
 
 }
+
  
