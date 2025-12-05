@@ -1,6 +1,6 @@
 locals {
 
-  location            = "uksouth"
+  location            = "westeurope"
 
   resource_group_name = "Test001"
  
