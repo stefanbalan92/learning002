@@ -2,7 +2,7 @@
 
 locals {
 
-  location            = "EastUS"
+  location            = "uksouth"
 
   resource_group_name = "Test001"
 
